@@ -1,4 +1,5 @@
 @base: #f938ab;
+@chango: 'Chango', cursive;
 
 html {
   background: url("../images/bg.jpg") no-repeat fixed;
@@ -6,5 +7,125 @@ html {
 }
 
 body {
-  background-color: @base;
+  background-color: transparent;
+
+  h1 {
+    font-family: @chango;
+    font-size: 190px;
+    position: relative;
+    top: -70px;
+    left: 60px;
+  }
+}
+
+#registerForm {
+  width: 600px;
+  border: 5px solid black;
+  background: transparent;
+  color: black;
+  font-family: @chango;
+  padding: 50px;
+
+  input {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+    font-family: @chango;
+  }
+
+  button {
+    background-color: transparent;
+    color: black;
+    font-family: @chango;
+    border: 2px solid black;
+  }
+
+  h3 {
+    color: black;
+    font-family: @chango;
+  }
+}
+
+#loginForm {
+  width: 600px;
+  border: 5px solid black;
+  background: transparent;
+  color: black;
+  font-family: @chango;
+  padding: 50px;
+
+  input {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+    font-family: @chango;
+  }
+
+  button {
+    background-color: transparent;
+    color: black;
+    font-family: @chango;
+    border: 2px solid black;
+  }
+
+  h3 {
+    color: black;
+    font-family: @chango;
+  }
+}
+
+#gameForm {
+  width: 600px;
+  border: 5px solid black;
+  background: transparent;
+  color: black;
+  font-family: @chango;
+  padding: 50px;
+
+  input {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+    font-family: @chango;
+  }
+
+  button {
+    background-color: transparent;
+    color: black;
+    font-family: @chango;
+    border: 2px solid black;
+  }
+
+  h3 {
+    color: black;
+    font-family: @chango;
+  }
+}
+
+#startBox {
+  border: 5px solid black;
+  width: 600px;
+  height: 190px;
+  margin-top: -70px;
+
+  h3 {
+    width: 490px;
+    margin: 30px auto;
+    font-family: @chango;
+  }
+
+  .row {
+    margin-top: 40px;
+    margin-left: 150px;
+    width: 600px;
+
+    input {
+      border: 2px solid black;
+      color: black;
+      background-color: transparent;
+      font-family: @chango;
+    }
+
+    input:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 }
