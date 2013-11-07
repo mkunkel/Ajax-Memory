@@ -1,6 +1,43 @@
 extends ../template/layout
+include ../mixins/form-helper
 
 block content
+  h1 MEMORY
   .row
-    .small-12.columns
-      h1 Home Page
+    #startBox
+      h3 Log in or register to start!
+      .row
+        .small-3.columns
+          input#loginButton.button.radius.expand(type="button", value="Log In")
+        .small-3.columns
+          input#registerButton.button.radius.expand(type="button", value="Register")
+        .small-6.columns
+  .row
+    form#registerForm(action="/games/start", method="post")
+      h3 New Player
+      .row
+        mixin field(12, "player", null, null, "Enter Player Name Here")
+      .row
+        .small-3.columns: button.button.radius.expand(type="submit") Register
+        .small-6.columns
+  .row
+    form#loginForm(action="/games/start", method="post")
+      h3 New Player
+      .row
+        select
+          option Select Player
+      .row
+        .small-3.columns: button.button.radius.expand(type="submit") Select
+        .small-6.columns
+  .row
+    form#gameForm(action="/games/start", method="post")
+      h3 Game Setup
+      .row
+        mixin field(12, "numSquares", null, null, "Enter Number of Squares Here")
+      .row
+        input(type="hidden", name="player")
+      .row
+        .small-4.columns: button.button.radius.expand(type="submit") Start Game
+        .small-8.columns
+
+
