@@ -13,15 +13,15 @@ block content
           input#registerButton.button.radius.expand(type="button", value="Register")
         .small-6.columns
   .row
-    form#registerForm(action="/games/start", method="post")
+    form#registerForm(action="/player", method="post")
       h3 New Player
       .row
-        mixin field(12, "player", null, null, "Enter Player Name Here")
+        mixin field(12, "name", null, null, "Enter Player Name Here")
       .row
         .small-3.columns: button.button.radius.expand(type="submit") Register
         .small-6.columns
   .row
-    form#loginForm(action="/games/start", method="post")
+    form#loginForm(action="/player/login", method="post")
       h3 New Player
       .row
         select
@@ -30,7 +30,7 @@ block content
         .small-3.columns: button.button.radius.expand(type="submit") Select
         .small-6.columns
   .row
-    form#gameForm(action="/games/start", method="post")
+    form#gameForm(action="/", method="post")
       h3 Game Setup
       .row
         mixin field(12, "numSquares", null, null, "Enter Number of Squares Here")
