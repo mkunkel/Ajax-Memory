@@ -1,5 +1,6 @@
 // express application
 var game = require('./routes/game');
+var player = require('./routes/player');
 
 // modules
 var express = require('express');

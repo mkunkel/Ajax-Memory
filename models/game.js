@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 
 var Game = mongoose.Schema({
-  name:      String,
-  color:     String,
-  createdAt: {type: Date, default: Date.now}
+  player:         {type: mongoose.Schema.Types.ObjectId, ref: 'Player'}
+  numSquares:     Number,
+  squareData:     [Number],
+  createdAt:      {type: Date, default: Date.now}
 });
 
 mongoose.model('Game', Game);

@@ -13,3 +13,10 @@ exports.index = function(req, res){
   console.log('game.index'.italic.underline.bold.magenta);
   res.render('game/index', {title: 'Express'});
 };
+
+//POST /games
+exports.create = function(req, res) {
+  new Game(req.query).save(function(err, game){
+    res.send(game);
+  });
+};
