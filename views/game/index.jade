@@ -3,7 +3,7 @@ include ../mixins/form-helper
 
 block content
   h1 MEMORY
-  .row
+  .row.parentRow
     #startBox
       h3 Log in or register to start!
       .row
@@ -13,7 +13,7 @@ block content
           input#registerButton.button.radius.expand(type="button", value="Register")
         .small-6.columns
 
-  .row
+  .row.parentRow
     form#registerForm(action="/games/start", method="post")
       h3 New Player
       .row
@@ -22,7 +22,7 @@ block content
         .small-3.columns: button.button.radius.expand(type="submit") Register
         .small-6.columns
 
-  .row
+  .row.parentRow
     form#loginForm(action="/games/start", method="post")
       h3 New Player
       .row
@@ -32,7 +32,7 @@ block content
         .small-3.columns: button.button.radius.expand(type="submit") Select
         .small-6.columns
 
-  .row
+  .row.parentRow
     form#gameForm(action="/games/start", method="post")
       h3 Game Setup
       .row
