@@ -2,7 +2,7 @@ $(document).ready(initialize);
 
 function initialize(){
   $(document).foundation();
-
+  $('.parentRow:not(:first-child)').hide();
   $('#loginButton').on('click', clickLogin);
   $('#registerButton').on('click', clickRegister);
   $('#loginForm').on('submit', submitLogin);
@@ -17,6 +17,8 @@ function initialize(){
 
 
 function submitAjaxForm(event, form, fn) {
+  console.log(event);
+  console.log(form);
   var url = $(form).attr('action');
   var data = $(form).serialize();
 
@@ -25,14 +27,14 @@ function submitAjaxForm(event, form, fn) {
   options.type = 'POST';
   options.data = data;
   options.success = function(data, status, jqXHR){
+    console.log('success');
     fn(data, form);
   };
   options.error = function(jqXHR, status, error){
     console.log(error);
   };
-
-
-  $.ajax(options)
+  debugger;
+  $.ajax(options);
 
   event.preventDefault();
 }
@@ -71,6 +73,7 @@ function submitLogin(event) {
 }
 
 function submitRegister(event) {
+  alert('submitRegister');
   submitAjaxForm(event, this, showGameForm);
 }
 
@@ -88,11 +91,11 @@ function clickCard(event) {
 //----------VIEW-FUNCTIONS-----------------------------------------------------
 
 function hideParentRow(element) {
-  $(element).closest('.row').hide();
+  $(element).closest('.parentRow').hide();
 }
 
 function showParentRow(element) {
-  $(element).closest('.row').fadeIn();
+  $(element).closest('.parentRow').fadeIn();
 }
 
 function showGameForm(data, form) {

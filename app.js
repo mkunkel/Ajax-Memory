@@ -35,9 +35,9 @@ if ('development' == app.get('env')) {
 app.get('/', game.index);
 
 app.post('/', game.create);
-app.post('/:card' , game.guess);
 app.post('/player', player.create);
-app.post('/player/:id', player.login);
+app.post('/:card', game.guess);
+app.post('/player/login', player.login);
 
 // start server
 http.createServer(app).listen(app.get('port'), function(){
