@@ -27,6 +27,7 @@ if ('development' == app.get('env')) {
 
 // route definitions
 app.get('/', game.index);
+
 app.post('/', game.create);
 app.post('/player', player.create);
 app.post('/player/:id', player.login);
