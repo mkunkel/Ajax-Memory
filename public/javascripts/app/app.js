@@ -8,6 +8,7 @@ function initialize(){
   $('#loginForm').on('submit', submitLogin);
   $('#registerForm').on('submit', submitRegister);
   $('#gameForm').on('submit', submitGame);
+  $('#game').on('click', '.card:not(.guess, .correct)', clickCard);
 }
 
 //-----------------------------------------------------------------------------
@@ -74,7 +75,12 @@ function submitRegister(event) {
 }
 
 function submitGame(event) {
+  submitAjaxForm(event, this, startGame);
+}
 
+function clickCard(event) {
+  var index = $(this).data('position');
+  sendGenericAjaxRequest('/' + index, {}, 'POST', null, null, receiveCard, this);
 }
 
 //-----------------------------------------------------------------------------
@@ -91,5 +97,25 @@ function showParentRow(element) {
 
 function showGameForm(data, form) {
   hideParentRow(form);
+  $('#gameForm input[name=player]').value(data._id);
   showParentRow('#gameForm');
+}
+
+function receiveCard(data, card) {
+  if ($('.guesses').length == 1) {
+    //second guess, flip card and check for match
+    $(card).addClass('guess').text(data.number);
+  } else {
+    // either very first guess or first guess on new set
+    // remove text from guesses, hide all guessed cards, flip new card
+    $('.guess:not(correct)').text('');
+    $('.card').removeClass('guess');
+    $(card).addClass('guess').text(data.number);
+  }
+}
+
+function populateCards(squares) {
+  for (var i = 0; i < squares; i++) {
+    $('#game').append($('<div>').addClass('card').data('position', i));
+  }
 }
