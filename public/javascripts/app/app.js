@@ -2,7 +2,7 @@ $(document).ready(initialize);
 
 function initialize(){
   $(document).foundation();
-  $('.parentRow:not(:first-child)').hide();
+  $('.parentRow:not(:nth-of-type(1)), #game').hide();
   $('#loginButton').on('click', clickLogin);
   $('#registerButton').on('click', clickRegister);
   $('#loginForm').on('submit', submitLogin);
@@ -33,10 +33,10 @@ function submitAjaxForm(event, form, fn) {
   options.error = function(jqXHR, status, error){
     console.log(error);
   };
-  debugger;
   $.ajax(options);
 
   event.preventDefault();
+
 }
 
 function sendGenericAjaxRequest(url, data, verb, altVerb, event, fn, form){
@@ -73,17 +73,20 @@ function submitLogin(event) {
 }
 
 function submitRegister(event) {
-  alert('submitRegister');
   submitAjaxForm(event, this, showGameForm);
 }
 
 function submitGame(event) {
+  console.log('submitGame');
+
   submitAjaxForm(event, this, startGame);
+
 }
 
 function clickCard(event) {
   var index = $(this).data('position');
-  sendGenericAjaxRequest('/' + index, {}, 'POST', null, null, receiveCard, this);
+  console.log('click card ' + index);
+  sendGenericAjaxRequest('/card/' + index, {id: $('#game').data('id')}, 'POST', null, event, receiveCard, this);
 }
 
 //-----------------------------------------------------------------------------
@@ -100,18 +103,28 @@ function showParentRow(element) {
 
 function showGameForm(data, form) {
   hideParentRow(form);
-  $('#gameForm input[name=player]').value(data._id);
+  $('#gameForm input[name=player]').val(data._id);
   showParentRow('#gameForm');
 }
 
 function receiveCard(data, card) {
-  if ($('.guesses').length == 1) {
+  if ($('.guess').length == 1) {
     //second guess, flip card and check for match
+    console.log('1 guess');
     $(card).addClass('guess').text(data.number);
   } else {
     // either very first guess or first guess on new set
     // remove text from guesses, hide all guessed cards, flip new card
+
+    console.log($('.guess:nth-of-type(1)').text());
+    console.log($('.guess:nth-of-type(2)').text());
+
+    if ($('.guess:nth-of-type(1)').text() === $('.guess:nth-of-type(2)').text()) {
+      console.log('match');
+      $('.guess').addClass('correct');
+    }
     $('.guess:not(correct)').text('');
+    console.log('else');
     $('.card').removeClass('guess');
     $(card).addClass('guess').text(data.number);
   }
@@ -121,4 +134,10 @@ function populateCards(squares) {
   for (var i = 0; i < squares; i++) {
     $('#game').append($('<div>').addClass('card').data('position', i));
   }
+}
+
+function startGame(data, form) {
+  hideParentRow(form);
+  $('#game').data('id', data._id).show();
+  populateCards(data.numSquares);
 }

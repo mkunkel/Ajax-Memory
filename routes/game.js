@@ -15,22 +15,25 @@ exports.index = function(req, res){
   res.render('game/index', {title: 'Express'});
 };
 
-//POST /games
+//POST /
 exports.create = function(req, res) {
-  new Game(req.query).save(function(err, game){
+  new Game(req.body).save(function(err, game){
+
     var squares = _.range(game.numSquares);
     squares = squares.concat(squares);
     game.squareData = _.shuffle(squares);
-    res.send(game._id);
+    game.save();
+    var response = {  _id: game._id, numSquares: game.numSquares };
+
+    res.send(response);
   });
 };
 
-//POST /:card
+//POST /card/:id
 exports.guess = function(req, res) {
-  // new Game(req.query).save(function(err, game){
-  //   var squares = _.range(game.numSquares);
-  //   squares = squares.concat(squares);
-  //   game.squareData = _.shuffle(squares);
-  //   res.send(game._id);
-  // });
+  Game.findById(req.body.id, function(err, game) {
+    console.log(game.squareData[req.params.id]);
+    console.log(game.squareData);
+    res.send({number: game.squareData[req.params.id]});
+  });
 };
