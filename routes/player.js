@@ -23,5 +23,7 @@ exports.create = function(req, res) {
 
 //POST /players/:id
 exports.login = function(req, res) {
-  // Player.find().wher
+  Player.findById(req.body.id, function(err, player){
+    res.send(player);
+  });
 };
