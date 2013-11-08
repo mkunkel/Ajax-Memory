@@ -17,6 +17,7 @@ function initialize(){
 
 
 function submitAjaxForm(event, form, fn) {
+  debugger;
   console.log(event);
   console.log(form);
   var url = $(form).attr('action');
@@ -26,6 +27,7 @@ function submitAjaxForm(event, form, fn) {
   options.url = url;
   options.type = 'POST';
   options.data = data;
+  console.log('data = ' + options.data);
   options.success = function(data, status, jqXHR){
     console.log('success');
     fn(data, form);
@@ -59,6 +61,7 @@ function sendGenericAjaxRequest(url, data, verb, altVerb, event, fn, form){
 //----------HANDLERS-----------------------------------------------------------
 
 function clickLogin(event) {
+  sendGenericAjaxRequest('/player/list', {}, 'POST', null, event, populateUsers, this);
   hideParentRow(this);
   showParentRow('#loginForm');
 }
@@ -68,11 +71,13 @@ function clickRegister(event) {
 }
 
 function submitLogin(event) {
+  // $('#loginPwd').val(sha3($('#loginPwd').val()));
   submitAjaxForm(event, this, showGameForm);
-  hideParentRow(this);
 }
 
 function submitRegister(event) {
+  // $('#registerPwd').val(sha3($('#registerPwd').val()));
+  // debugger;
   submitAjaxForm(event, this, showGameForm);
 }
 
@@ -99,10 +104,14 @@ function hideParentRow(element) {
 
 function showParentRow(element) {
   $(element).closest('.parentRow').fadeIn();
+  if ($('input[type=text]').length) {
+    $('input[type=text]:nth-of-type(1)').focus();
+  }
 }
 
 function showGameForm(data, form) {
   hideParentRow(form);
+  console.log('Data = ' + data);
   $('#gameForm input[name=player]').val(data._id);
   showParentRow('#gameForm');
 }
@@ -113,12 +122,12 @@ function receiveCard(data, card) {
 
     $(card).addClass('guess').text(data.number);
     if ($($('.guess')[0]).text() === $($('.guess')[1]).text()) {
-      $('.guess').addClass('correct');
+      $('.guess').addClass('correct').removeClass('guess');
     }
   } else {
     // either very first guess or first guess on new set
     // remove text from guesses, hide all guessed cards, flip new card
-
+    $('.guess').text('');
     $('.card').removeClass('guess');
     $(card).addClass('guess').text(data.number);
   }
@@ -127,6 +136,12 @@ function receiveCard(data, card) {
 function populateCards(squares) {
   for (var i = 0; i < squares * 2; i++) {
     $('#game').append($('<div>').addClass('card').data('position', i));
+  }
+}
+
+function populateUsers(users, form) {
+  for (var i = 0; i < users.length; i++) {
+    $('#userSelect').append($('<option>').val(users[i]._id).text(users[i].name));
   }
 }
 

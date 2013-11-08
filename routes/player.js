@@ -1,4 +1,5 @@
 var colors = require('colors');
+var CryptoJS = require('crypto-js');
 
 var mongoose = require('mongoose');
 var Player = mongoose.model('Player');
@@ -25,10 +26,24 @@ exports.create = function(req, res) {
   });
 };
 
-//POST /player/login
+//POST /player/login/
 exports.login = function(req, res) {
   console.log('player.login'.italic.underline.bold.magenta);
+  console.log('------------------------'.italic.underline.bold.yellow);
+  console.log(req.body);
+  console.log('------------------------'.italic.underline.bold.yellow);
   Player.findById(req.body.id, function(err, player){
     res.send(player);
+  });
+};
+
+//POST /player/list
+exports.list = function(req, res) {
+  console.log('player.list'.italic.underline.bold.magenta);
+  Player.find(function(err, players){
+    for (var i = 0; i < players.length; i++) {
+      delete players[i].password;
+    }
+    res.send(players);
   });
 };

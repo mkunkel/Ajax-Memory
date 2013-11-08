@@ -15,7 +15,7 @@ block content
 
   .row.parentRow
     form#registerForm(action="/player", method="post")
-      h3 New Player
+      h3 Register
       .row
         mixin field(12, "name", null, null, "Enter Player Name Here")
       .row
@@ -24,9 +24,9 @@ block content
 
   .row.parentRow
     form#loginForm(action="/player/login", method="post")
-      h3 New Player
+      h3 Log In
       .row
-        select
+        select(name='id')#userSelect
           option Select Player
       .row
         .small-3.columns: button.button.radius.expand(type="submit") Select
@@ -37,9 +37,8 @@ block content
     form#gameForm(action="/", method="post")
       h3 Game Setup
       .row
-        mixin field(12, "numSquares", null, null, "Enter Number of Squares Here")
-      .row
         input(type="hidden", name="player")
+        mixin field(12, "numSquares", null, null, "Enter Number of Squares Here")
       .row
         .small-4.columns: button.button.radius.expand(type="submit") Start Game
         .small-8.columns
