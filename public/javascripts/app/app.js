@@ -108,30 +108,24 @@ function showGameForm(data, form) {
 }
 
 function receiveCard(data, card) {
-  if ($('.guess').length == 1) {
+  if ($('.guess').length === 1) {
     //second guess, flip card and check for match
-    console.log('1 guess');
+
     $(card).addClass('guess').text(data.number);
+    if ($($('.guess')[0]).text() === $($('.guess')[1]).text()) {
+      $('.guess').addClass('correct');
+    }
   } else {
     // either very first guess or first guess on new set
     // remove text from guesses, hide all guessed cards, flip new card
 
-    console.log($('.guess:nth-of-type(1)').text());
-    console.log($('.guess:nth-of-type(2)').text());
-
-    if ($('.guess:nth-of-type(1)').text() === $('.guess:nth-of-type(2)').text()) {
-      console.log('match');
-      $('.guess').addClass('correct');
-    }
-    $('.guess:not(correct)').text('');
-    console.log('else');
     $('.card').removeClass('guess');
     $(card).addClass('guess').text(data.number);
   }
 }
 
 function populateCards(squares) {
-  for (var i = 0; i < squares; i++) {
+  for (var i = 0; i < squares * 2; i++) {
     $('#game').append($('<div>').addClass('card').data('position', i));
   }
 }
