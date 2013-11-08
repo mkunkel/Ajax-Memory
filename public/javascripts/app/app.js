@@ -17,7 +17,7 @@ function initialize(){
 
 
 function submitAjaxForm(event, form, fn) {
-  debugger;
+  // debugger;
   console.log(event);
   console.log(form);
   var url = $(form).attr('action');
